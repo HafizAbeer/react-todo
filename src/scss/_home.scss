@@ -1,0 +1,34 @@
+// .inputs {
+//   min-width: 46%;
+//   margin: 5px;
+//   margin-left: 12px;
+//   margin-top: 20px;
+// }
+
+// .addUser {
+//   min-width: 50%;
+//   margin-top: 10px;
+// }
+
+main {
+  color: white;
+
+  background: #0f0c29; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* App.scss */
+.custom-input {
+  color: #595c5f; /* Change this to your desired color */
+}
