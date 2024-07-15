@@ -17,19 +17,19 @@ const Login = () => {
     email = email.trim();
 
     if (!email) {
-      alert("Enter email");
+      showNotification("Enter email", "error");
       return;
     }
     if (!emailRegex.test(email)) {
-      alert("Enter correct email");
+      showNotification("Enter correct email", "error");
       return;
     }
     if (!password) {
-      alert("Enter password");
+      showNotification("Enter password", "error");
       return;
     }
     if (password.length < 6) {
-      alert("Invalid email or password");
+      showNotification("Invalid email or password", "error");
       return;
     }
 
@@ -38,10 +38,40 @@ const Login = () => {
     );
 
     if (user) {
-      alert("Login successfully");
+      showNotification("Login successfully", "success");
       navigate("/home");
     } else {
-      alert("Invalid email or password");
+      showNotification("Invalid email or password", "error");
+    }
+
+    function showNotification(message, type) {
+      let bgColor;
+
+      switch (type) {
+        case "success":
+          bgColor = "linear-gradient(to right, #1D976C, #93F9B9)";
+          break;
+        case "error":
+          bgColor = "linear-gradient(to right, #93291e, #ed213a)";
+          break;
+        default:
+          bgColor = "#000";
+      }
+
+      Toastify({
+        text: message,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: bgColor,
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     }
   };
 

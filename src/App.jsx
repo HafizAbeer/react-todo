@@ -15,9 +15,9 @@ import Register from "./Components/pages/Auth/Register";
 import ForgotPassword from "./Components/pages/Auth/ForgotPassword";
 import Contact from "./Components/pages/Frontend/Contact";
 import About from "./Components/pages/Frontend/About";
-import Users from "./Components/pages/Frontend/Users";
 import AddUser from "./Components/pages/Frontend/AddUser";
 import Home from "./Components/pages/Frontend/Home";
+import Users from "./Components/pages/Frontend/Users";
 
 const App = () => {
   return (

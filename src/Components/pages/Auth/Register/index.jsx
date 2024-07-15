@@ -18,15 +18,15 @@ const Register = () => {
     let { fullName, email, password } = state;
 
     if (!fullName) {
-      alert("Enter name");
+      showNotification("Enter name", "error");
       return;
     }
     if (!email) {
-      alert("Enter email");
+      showNotification("Enter email", "error");
       return;
     }
     if (!emailRegex.test(email)) {
-      alert("Enter correct email");
+      showNotification("Enter correct email", "error");
       return;
     }
 
@@ -37,16 +37,16 @@ const Register = () => {
 
     let emailToCheck = email;
     if (isUserRegistered(emailToCheck, existingUsers)) {
-      alert("User already registered");
+      showNotification("User already registered", "error");
       return;
     }
 
     if (!password) {
-      alert("Enter password");
+      showNotification("Enter password", "error");
       return;
     }
     if (password.length < 6) {
-      alert("Length of password must be atleast 6");
+      showNotification("Length of password must be atleast 6", "error");
       return;
     }
 
@@ -58,8 +58,38 @@ const Register = () => {
     if (formData) {
       // Store the updated user data array in localStorage
       localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
-      alert("User Registered");
+      showNotification("User Registered", "success");
       navigate("/login");
+    }
+
+    function showNotification(message, type) {
+      let bgColor;
+
+      switch (type) {
+        case "success":
+          bgColor = "linear-gradient(to right, #1D976C, #93F9B9)";
+          break;
+        case "error":
+          bgColor = "linear-gradient(to right, #93291e, #ed213a)";
+          break;
+        default:
+          bgColor = "#000";
+      }
+
+      Toastify({
+        text: message,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: bgColor,
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     }
   };
 

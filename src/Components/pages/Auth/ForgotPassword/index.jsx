@@ -14,14 +14,47 @@ const ForgotPassword = () => {
     let { email } = state;
 
     if (!email) {
-      alert("Please enter email");
+      showNotification("Please enter email", "error");
       return;
     }
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email");
+      showNotification("Please enter a valid email", "error");
       return;
     } else {
-      alert("Reset link has been sent to the registered email");
+      showNotification(
+        "Reset link has been sent to the registered email",
+        "success"
+      );
+    }
+
+    function showNotification(message, type) {
+      let bgColor;
+
+      switch (type) {
+        case "success":
+          bgColor = "linear-gradient(to right, #1D976C, #93F9B9)";
+          break;
+        case "error":
+          bgColor = "linear-gradient(to right, #93291e, #ed213a)";
+          break;
+        default:
+          bgColor = "#000";
+      }
+
+      Toastify({
+        text: message,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: bgColor,
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     }
   };
   return (

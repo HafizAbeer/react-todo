@@ -3,7 +3,7 @@ import { Button, Image, Typography } from "antd";
 
 const { Paragraph } = Typography;
 
-const Users = () => {
+const Products = () => {
   const [products, setProducts] = useState([]);
   const [limit, setLimit] = useState(5);
 
@@ -47,7 +47,7 @@ const Users = () => {
         <div className="row">
           <div className="col">
             <div className="table-responsive">
-              <table className="table table-striped table-hover align-middle">
+              <table className="table table-striped table-hover align-middle text-center">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -70,7 +70,7 @@ const Users = () => {
                             src={image}
                             alt={title}
                             style={{ width: 48, height: 48 }}
-                          ></Image>{" "}
+                          ></Image>
                         </td>
                         <td> {title} </td>
                         <td>{price}</td>
@@ -111,4 +111,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Products;
