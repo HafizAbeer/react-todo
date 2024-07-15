@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons
 
 const Register = () => {
-  // Get existing user data from localStorage
   const existingUsers =
     JSON.parse(localStorage.getItem("registeredUsers")) || [];
   const navigate = useNavigate();
 
   const [state, setState] = useState({ fullName: "", email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const handleChange = (e) =>
     setState((s) => ({ ...s, [e.target.name]: e.target.value }));
 
@@ -31,12 +32,10 @@ const Register = () => {
     }
 
     function isUserRegistered(email, users) {
-      // Check if any user in the array has the given email
       return users.some((user) => user.email === email);
     }
 
-    let emailToCheck = email;
-    if (isUserRegistered(emailToCheck, existingUsers)) {
+    if (isUserRegistered(email, existingUsers)) {
       showNotification("User already registered", "error");
       return;
     }
@@ -46,21 +45,16 @@ const Register = () => {
       return;
     }
     if (password.length < 6) {
-      showNotification("Length of password must be atleast 6", "error");
+      showNotification("Length of password must be at least 6", "error");
       return;
     }
 
     const formData = { fullName, email, password };
-
-    // Add the new user data to the existing user data array
     const updatedUsers = [...existingUsers, formData];
 
-    if (formData) {
-      // Store the updated user data array in localStorage
-      localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
-      showNotification("User Registered", "success");
-      navigate("/login");
-    }
+    localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
+    showNotification("User Registered", "success");
+    navigate("/login");
 
     function showNotification(message, type) {
       let bgColor;
@@ -82,13 +76,13 @@ const Register = () => {
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "top",
+        position: "left",
+        stopOnFocus: true,
         style: {
           background: bgColor,
         },
-        onClick: function () {}, // Callback after click
+        onClick: function () {},
       }).showToast();
     }
   };
@@ -124,14 +118,29 @@ const Register = () => {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="col-12 mb-4">
+                  <div className="col-12 mb-4" style={{ position: "relative" }}>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       className="form-control"
                       placeholder="Type password"
                       name="password"
                       onChange={handleChange}
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
                   </div>
                   <div className="col-12">
                     <button className="btn btn-primary w-100">Register</button>

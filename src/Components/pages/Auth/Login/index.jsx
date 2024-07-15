@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons
 
 const Login = () => {
   const [state, setState] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const handleChange = (e) =>
     setState((s) => ({ ...s, [e.target.name]: e.target.value }));
 
@@ -97,14 +99,29 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="col-12 mb-4">
+                  <div className="col-12 mb-4" style={{ position: "relative" }}>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       className="form-control"
                       placeholder="Type password"
                       name="password"
                       onChange={handleChange}
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
                   </div>
 
                   <div className="mb-3">
